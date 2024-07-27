@@ -21,7 +21,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import CustomFormField, { FormFieldType } from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 import { Form } from "../ui/form";
-import { timeStamp } from "console";
+
 
 export const AppointmentForm = ({
   userId,

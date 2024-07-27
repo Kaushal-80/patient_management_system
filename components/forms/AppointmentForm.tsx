@@ -16,12 +16,11 @@ import {
 import { getAppointmentSchema } from "@/lib/validation";
 import { Appointment } from "@/types/appwrite.types";
 
-import "react-datepicker/dist/react-datepicker.css";
-
 import CustomFormField, { FormFieldType } from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 import { Form } from "../ui/form";
 
+import "react-datepicker/dist/react-datepicker.css";
 
 export const AppointmentForm = ({
   userId,
@@ -44,7 +43,7 @@ export const AppointmentForm = ({
   const form = useForm<z.infer<typeof AppointmentFormValidation>>({
     resolver: zodResolver(AppointmentFormValidation),
     defaultValues: {
-      primaryPhysician: appointment ? appointment?.primaryPhysician : "",
+      primaryPhysician: appointment ? appointment.primaryPhysician : "",
       schedule: appointment
         ? new Date(appointment?.schedule!)
         : new Date(Date.now()),
@@ -94,14 +93,15 @@ export const AppointmentForm = ({
       } else {
         const appointmentToUpdate = {
           userId,
+          timeZone: 'America/New_York', 
           appointmentId: appointment?.$id!,
           appointment: {
-            primaryPhysician: values.primaryPhysician,
-            schedule: new Date(values.schedule),
+            primaryPhysician: values?.primaryPhysician,
+            schedule: new Date(values?.schedule),
             status: status as Status,
-            cancellationReason: values.cancellationReason,
+            cancellationReason: values?.cancellationReason,
           },
-          type
+          type,
         };
 
         const updatedAppointment = await updateAppointment(appointmentToUpdate);
